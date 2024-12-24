@@ -125,11 +125,11 @@ class FastMRZ:
         raw_roi = self._get_roi(output_data, image)
         return self._cleanse_roi(raw_roi)
 
-    def get_mrz(self, image, raw=False):
+    def get_mrz(self, image):
         if not self._is_valid(image):
-            return {"status": "FAILURE", "message": "Invalid input image"}
+            return {"status": "FAILURE", "message": "Invalid input image"}, ""
         mrz_text = self._get_raw_mrz(image)
-        return mrz_text if raw else self._parse_mrz(mrz_text)
+        return self._parse_mrz(mrz_text), mrz_text
 
     def _get_date_of_birth(self, date_of_birth_str, date_of_expiry_str):
         birth_year = int(date_of_birth_str[:4])
